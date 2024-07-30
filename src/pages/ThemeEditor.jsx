@@ -15,17 +15,45 @@ const initialTheme = {
   isV3: true,
   colors: {
     primary: "#005AC1",
-    onPrimary: "rgb(255, 255, 255)",
-    primaryContainer: "rgb(197, 231, 255)",
-    onPrimaryContainer: "rgb(0, 30, 45)",
-    secondary: "rgb(78, 97, 110)",
-    onSecondary: "rgb(255, 255, 255)",
-    secondaryContainer: "rgb(209, 229, 245)",
-    onSecondaryContainer: "rgb(10, 30, 41)",
+    onPrimary: "#FFFFFF",
+    primaryContainer: "#C5E7FF",
+    onPrimaryContainer: "#001E2D",
+    secondary: "#4E616E",
+    onSecondary: "#FFFFFF",
+    secondaryContainer: "#D1E5F5",
+    onSecondaryContainer: "#0A1E29",
+    tertiary: "#7A5900",
+    onTertiary: "#FFFFFF",
+    tertiaryContainer: "#FFDEA3",
+    onTertiaryContainer: "#261900",
+    error: "#BA1A1A",
+    onError: "#FFFFFF",
+    errorContainer: "#FFDAD6",
+    onErrorContainer: "#410002",
     background: "#FFFFFF",
-    onBackground: "rgb(25, 28, 30)",
-    surface: "rgb(251, 252, 255)",
-    onSurface: "rgb(25, 28, 30)",
+    onBackground: "#191C1E",
+    surface: "#FBFCFF",
+    onSurface: "#191C1E",
+    surfaceVariant: "#DDE3EA",
+    onSurfaceVariant: "#41484D",
+    outline: "#71787E",
+    outlineVariant: "#C1C7CE",
+    shadow: "#000000",
+    scrim: "#000000",
+    inverseSurface: "#2E3133",
+    inverseOnSurface: "#F0F1F3",
+    inversePrimary: "#7FD0FF",
+    elevation: {
+      level0: "transparent",
+      level1: "#EEF4F9",
+      level2: "#E7F0F6",
+      level3: "#DFF0F2",
+      level4: "#DDF0F1",
+      level5: "#D8E7EF"
+    },
+    surfaceDisabled: "#191C1E1F",
+    onSurfaceDisabled: "#191C1E61",
+    backdrop: "#2A31368C"
   },
 };
 
@@ -72,6 +100,13 @@ const ThemeEditor = () => {
           [selectedColor]: color,
         },
       };
+      if (selectedColor.startsWith('elevation.')) {
+        const [, level] = selectedColor.split('.');
+        newTheme.colors.elevation = {
+          ...prevTheme.colors.elevation,
+          [level]: color,
+        };
+      }
       updateUrlParams(newTheme.colors);
       return newTheme;
     });
@@ -310,14 +345,26 @@ const ThemeEditor = () => {
                 onChange={(e) => setSelectedColor(e.target.value)}
                 className="w-full p-2 mb-4 border rounded"
               >
-                {Object.keys(theme.colors).map((color) => (
-                  <option key={color} value={color}>{color}</option>
-                ))}
+                {Object.entries(theme.colors).flatMap(([key, value]) => {
+                  if (typeof value === 'object' && value !== null) {
+                    return Object.keys(value).map(subKey => (
+                      <option key={`${key}.${subKey}`} value={`${key}.${subKey}`}>{`${key}.${subKey}`}</option>
+                    ));
+                  }
+                  return <option key={key} value={key}>{key}</option>;
+                })}
               </select>
-              <HexColorPicker color={theme.colors[selectedColor]} onChange={handleColorChange} />
+              <HexColorPicker 
+                color={selectedColor.includes('.') 
+                  ? theme.colors[selectedColor.split('.')[0]][selectedColor.split('.')[1]] 
+                  : theme.colors[selectedColor]} 
+                onChange={handleColorChange} 
+              />
               <Input
                 type="text"
-                value={theme.colors[selectedColor]}
+                value={selectedColor.includes('.') 
+                  ? theme.colors[selectedColor.split('.')[0]][selectedColor.split('.')[1]] 
+                  : theme.colors[selectedColor]}
                 onChange={(e) => handleColorChange(e.target.value)}
                 className="mt-4"
               />
