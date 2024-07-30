@@ -73,13 +73,40 @@ const ThemeEditor = () => {
       });
   }, []);
 
+  const hexToRgb = (hex) => {
+    // Remove the hash if it exists
+    hex = hex.replace(/^#/, '');
+
+    // Parse the hex values
+    const bigint = parseInt(hex, 16);
+    const r = (bigint >> 16) & 255;
+    const g = (bigint >> 8) & 255;
+    const b = bigint & 255;
+
+    return `rgb(${r},${g},${b})`;
+  };
+
+  const convertColorsToRgb = (colors) => {
+    const convertedColors = {};
+    for (const [key, value] of Object.entries(colors)) {
+      if (typeof value === 'string' && value.startsWith('#')) {
+        convertedColors[key] = hexToRgb(value);
+      } else if (typeof value === 'object') {
+        convertedColors[key] = convertColorsToRgb(value);
+      } else {
+        convertedColors[key] = value;
+      }
+    }
+    return convertedColors;
+  };
+
   const exportTheme = () => {
     const exportedTheme = {
       dark: false,
       roundness: 4,
       version: 3,
       isV3: true,
-      colors: {
+      colors: convertColorsToRgb({
         ...theme.colors,
         tertiary: "rgb(122,89,0)",
         onTertiary: "rgb(255,255,255)",
@@ -116,7 +143,7 @@ const ThemeEditor = () => {
         googleRed: "#DB4437",
         googleYellow: "#F4B400",
         white: "#FFFFFF"
-      },
+      }),
       fonts: {
         displayLarge: {
           fontFamily: "System",
