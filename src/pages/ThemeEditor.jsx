@@ -377,38 +377,43 @@ const ThemeEditor = () => {
               <CardTitle>Preview</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <div style={{ backgroundColor: theme.colors.primary, color: theme.colors.onPrimary }} className="p-4 rounded">
-                  Primary
+              <div className="space-y-6">
+                <div className="flex space-x-4">
+                  <button style={{ backgroundColor: theme.colors.primary, color: theme.colors.onPrimary }} className="px-4 py-2 rounded shadow-md">
+                    Primary Button
+                  </button>
+                  <button style={{ backgroundColor: theme.colors.secondary, color: theme.colors.onSecondary }} className="px-4 py-2 rounded shadow-md">
+                    Secondary Button
+                  </button>
                 </div>
-                <div style={{ backgroundColor: theme.colors.primaryContainer, color: theme.colors.onPrimaryContainer }} className="p-4 rounded">
-                  Primary Container
+                <div style={{ backgroundColor: theme.colors.primaryContainer, color: theme.colors.onPrimaryContainer }} className="p-4 rounded-lg shadow-md flex items-center justify-between">
+                  <span>Primary Container Snackbar</span>
+                  <button style={{ backgroundColor: theme.colors.primary, color: theme.colors.onPrimary }} className="px-2 py-1 rounded text-sm">Action</button>
                 </div>
-                <div style={{ backgroundColor: theme.colors.secondary, color: theme.colors.onSecondary }} className="p-4 rounded">
-                  Secondary
+                <div style={{ backgroundColor: theme.colors.secondaryContainer, color: theme.colors.onSecondaryContainer }} className="p-4 rounded-lg shadow-md flex items-center justify-between">
+                  <span>Secondary Container Snackbar</span>
+                  <button style={{ backgroundColor: theme.colors.secondary, color: theme.colors.onSecondary }} className="px-2 py-1 rounded text-sm">Action</button>
                 </div>
-                <div style={{ backgroundColor: theme.colors.secondaryContainer, color: theme.colors.onSecondaryContainer }} className="p-4 rounded">
-                  Secondary Container
+                <div style={{ backgroundColor: theme.colors.tertiary, color: theme.colors.onTertiary }} className="p-4 rounded-lg shadow-md">
+                  Tertiary Card
                 </div>
-                <div style={{ backgroundColor: theme.colors.tertiary, color: theme.colors.onTertiary }} className="p-4 rounded">
-                  Tertiary
+                <div style={{ backgroundColor: theme.colors.tertiaryContainer, color: theme.colors.onTertiaryContainer }} className="p-4 rounded-lg shadow-md">
+                  Tertiary Container Card
                 </div>
-                <div style={{ backgroundColor: theme.colors.tertiaryContainer, color: theme.colors.onTertiaryContainer }} className="p-4 rounded">
-                  Tertiary Container
+                <div style={{ backgroundColor: theme.colors.error, color: theme.colors.onError }} className="p-4 rounded-lg shadow-md flex items-center justify-between">
+                  <span>Error Alert</span>
+                  <button style={{ border: `1px solid ${theme.colors.onError}`, color: theme.colors.onError }} className="px-2 py-1 rounded text-sm">Dismiss</button>
                 </div>
-                <div style={{ backgroundColor: theme.colors.error, color: theme.colors.onError }} className="p-4 rounded">
-                  Error
+                <div style={{ backgroundColor: theme.colors.errorContainer, color: theme.colors.onErrorContainer }} className="p-4 rounded-lg shadow-md">
+                  Error Container Message
                 </div>
-                <div style={{ backgroundColor: theme.colors.errorContainer, color: theme.colors.onErrorContainer }} className="p-4 rounded">
-                  Error Container
-                </div>
-                <div style={{ backgroundColor: theme.colors.background, color: theme.colors.onBackground }} className="p-4 rounded">
+                <div style={{ backgroundColor: theme.colors.background, color: theme.colors.onBackground }} className="p-4 rounded-lg shadow-md">
                   Background
                 </div>
-                <div style={{ backgroundColor: theme.colors.surface, color: theme.colors.onSurface }} className="p-4 rounded">
+                <div style={{ backgroundColor: theme.colors.surface, color: theme.colors.onSurface }} className="p-4 rounded-lg shadow-md">
                   Surface
                 </div>
-                <div style={{ backgroundColor: theme.colors.surfaceVariant, color: theme.colors.onSurfaceVariant }} className="p-4 rounded">
+                <div style={{ backgroundColor: theme.colors.surfaceVariant, color: theme.colors.onSurfaceVariant }} className="p-4 rounded-lg shadow-md">
                   Surface Variant
                 </div>
               </div>
