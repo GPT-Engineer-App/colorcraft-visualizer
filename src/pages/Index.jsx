@@ -1,11 +1,15 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 
 const Index = () => {
   return (
-    <div className="flex justify-center items-center">
+    <div className="flex justify-center items-center h-screen">
       <div className="text-center">
-        <h1 className="text-3xl">Your Blank Canvas</h1>
-        <p>Chat with the agent to start making edits.</p>
+        <h1 className="text-4xl font-bold mb-4">Material Theme Editor</h1>
+        <p className="mb-8">Edit and preview your Material Design theme colors</p>
+        <Link to="/theme-editor">
+          <Button>Go to Theme Editor</Button>
+        </Link>
       </div>
     </div>
   );
