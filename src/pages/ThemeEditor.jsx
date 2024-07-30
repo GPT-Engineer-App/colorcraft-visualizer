@@ -390,11 +390,26 @@ const ThemeEditor = () => {
                 <div style={{ backgroundColor: theme.colors.secondaryContainer, color: theme.colors.onSecondaryContainer }} className="p-4 rounded">
                   Secondary Container
                 </div>
+                <div style={{ backgroundColor: theme.colors.tertiary, color: theme.colors.onTertiary }} className="p-4 rounded">
+                  Tertiary
+                </div>
+                <div style={{ backgroundColor: theme.colors.tertiaryContainer, color: theme.colors.onTertiaryContainer }} className="p-4 rounded">
+                  Tertiary Container
+                </div>
+                <div style={{ backgroundColor: theme.colors.error, color: theme.colors.onError }} className="p-4 rounded">
+                  Error
+                </div>
+                <div style={{ backgroundColor: theme.colors.errorContainer, color: theme.colors.onErrorContainer }} className="p-4 rounded">
+                  Error Container
+                </div>
                 <div style={{ backgroundColor: theme.colors.background, color: theme.colors.onBackground }} className="p-4 rounded">
                   Background
                 </div>
                 <div style={{ backgroundColor: theme.colors.surface, color: theme.colors.onSurface }} className="p-4 rounded">
                   Surface
+                </div>
+                <div style={{ backgroundColor: theme.colors.surfaceVariant, color: theme.colors.onSurfaceVariant }} className="p-4 rounded">
+                  Surface Variant
                 </div>
               </div>
             </CardContent>
