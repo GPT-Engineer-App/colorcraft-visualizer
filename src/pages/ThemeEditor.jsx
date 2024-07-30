@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { HexColorPicker } from 'react-colorful';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tooltip } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
+import { useSearchParams } from 'react-router-dom';
 
 const initialTheme = {
   dark: false,
@@ -45,17 +46,39 @@ const radixColors = {
 };
 
 const ThemeEditor = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [theme, setTheme] = useState(initialTheme);
   const [selectedColor, setSelectedColor] = useState('primary');
 
+  useEffect(() => {
+    const colors = Object.fromEntries(searchParams.entries());
+    if (Object.keys(colors).length > 0) {
+      setTheme(prevTheme => ({
+        ...prevTheme,
+        colors: {
+          ...prevTheme.colors,
+          ...colors,
+        },
+      }));
+    }
+  }, [searchParams]);
+
   const handleColorChange = (color) => {
-    setTheme(prevTheme => ({
-      ...prevTheme,
-      colors: {
-        ...prevTheme.colors,
-        [selectedColor]: color,
-      },
-    }));
+    setTheme(prevTheme => {
+      const newTheme = {
+        ...prevTheme,
+        colors: {
+          ...prevTheme.colors,
+          [selectedColor]: color,
+        },
+      };
+      updateUrlParams(newTheme.colors);
+      return newTheme;
+    });
+  };
+
+  const updateUrlParams = (colors) => {
+    setSearchParams(colors);
   };
 
   const copyToClipboard = useCallback((color) => {
@@ -331,7 +354,16 @@ const ThemeEditor = () => {
           </Card>
         </div>
       </div>
-      <Button onClick={exportTheme} className="mt-4">Export Theme</Button>
+      <Button onClick={exportTheme} className="mt-4 mr-2">Export Theme</Button>
+      <Button onClick={() => {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+          toast.success('URL copied to clipboard!');
+        }).catch((err) => {
+          console.error('Could not copy URL: ', err);
+          toast.error('Failed to copy URL');
+        });
+      }} className="mt-4">Share URL</Button>
 
       <Card className="mt-8">
         <CardHeader>
