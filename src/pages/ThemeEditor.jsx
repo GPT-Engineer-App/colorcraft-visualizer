@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tooltip } from '@/components/ui/tooltip';
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { toast } from 'sonner';
 import { useSearchParams } from 'react-router-dom';
 
@@ -378,39 +378,37 @@ const ThemeEditor = () => {
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
-                <div style={{ backgroundColor: theme.colors.primary, color: theme.colors.onPrimary }} className="p-4 rounded">
-                  Primary
-                </div>
-                <div style={{ backgroundColor: theme.colors.primaryContainer, color: theme.colors.onPrimaryContainer }} className="p-4 rounded">
-                  Primary Container
-                </div>
-                <div style={{ backgroundColor: theme.colors.secondary, color: theme.colors.onSecondary }} className="p-4 rounded">
-                  Secondary
-                </div>
-                <div style={{ backgroundColor: theme.colors.secondaryContainer, color: theme.colors.onSecondaryContainer }} className="p-4 rounded">
-                  Secondary Container
-                </div>
-                <div style={{ backgroundColor: theme.colors.tertiary, color: theme.colors.onTertiary }} className="p-4 rounded">
-                  Tertiary
-                </div>
-                <div style={{ backgroundColor: theme.colors.tertiaryContainer, color: theme.colors.onTertiaryContainer }} className="p-4 rounded">
-                  Tertiary Container
-                </div>
-                <div style={{ backgroundColor: theme.colors.error, color: theme.colors.onError }} className="p-4 rounded">
-                  Error
-                </div>
-                <div style={{ backgroundColor: theme.colors.errorContainer, color: theme.colors.onErrorContainer }} className="p-4 rounded">
-                  Error Container
-                </div>
-                <div style={{ backgroundColor: theme.colors.background, color: theme.colors.onBackground }} className="p-4 rounded">
-                  Background
-                </div>
-                <div style={{ backgroundColor: theme.colors.surface, color: theme.colors.onSurface }} className="p-4 rounded">
-                  Surface
-                </div>
-                <div style={{ backgroundColor: theme.colors.surfaceVariant, color: theme.colors.onSurfaceVariant }} className="p-4 rounded">
-                  Surface Variant
-                </div>
+                {[
+                  { bg: 'primary', text: 'onPrimary', label: 'Primary' },
+                  { bg: 'primaryContainer', text: 'onPrimaryContainer', label: 'Primary Container' },
+                  { bg: 'secondary', text: 'onSecondary', label: 'Secondary' },
+                  { bg: 'secondaryContainer', text: 'onSecondaryContainer', label: 'Secondary Container' },
+                  { bg: 'tertiary', text: 'onTertiary', label: 'Tertiary' },
+                  { bg: 'tertiaryContainer', text: 'onTertiaryContainer', label: 'Tertiary Container' },
+                  { bg: 'error', text: 'onError', label: 'Error' },
+                  { bg: 'errorContainer', text: 'onErrorContainer', label: 'Error Container' },
+                  { bg: 'background', text: 'onBackground', label: 'Background' },
+                  { bg: 'surface', text: 'onSurface', label: 'Surface' },
+                  { bg: 'surfaceVariant', text: 'onSurfaceVariant', label: 'Surface Variant' },
+                ].map(({ bg, text, label }) => (
+                  <TooltipProvider key={bg}>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <div 
+                          style={{ backgroundColor: theme.colors[bg], color: theme.colors[text] }} 
+                          className="p-4 rounded cursor-pointer"
+                        >
+                          <span onClick={() => setSelectedColor(text)}>{label}</span>
+                          <div className="w-full h-full" onClick={() => setSelectedColor(bg)}></div>
+                        </div>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Click text to edit {text}</p>
+                        <p>Click background to edit {bg}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                ))}
               </div>
             </CardContent>
           </Card>
