@@ -74,7 +74,167 @@ const ThemeEditor = () => {
   }, []);
 
   const exportTheme = () => {
-    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(theme, null, 2));
+    const exportedTheme = {
+      dark: false,
+      roundness: 4,
+      version: 3,
+      isV3: true,
+      colors: {
+        ...theme.colors,
+        tertiary: "rgb(122,89,0)",
+        onTertiary: "rgb(255,255,255)",
+        tertiaryContainer: "rgb(255,222,163)",
+        onTertiaryContainer: "rgb(38,25,0)",
+        error: "rgb(186,26,26)",
+        onError: "rgb(255,255,255)",
+        errorContainer: "rgb(255,218,214)",
+        onErrorContainer: "rgb(65,0,2)",
+        surfaceVariant: "rgb(221,227,234)",
+        onSurfaceVariant: "rgb(65,72,77)",
+        outline: "rgb(113,120,126)",
+        outlineVariant: "rgb(193,199,206)",
+        shadow: "rgb(0,0,0)",
+        scrim: "rgb(0,0,0)",
+        inverseSurface: "rgb(46,49,51)",
+        inverseOnSurface: "rgb(240,241,243)",
+        inversePrimary: "rgb(127,208,255)",
+        elevation: {
+          level0: "transparent",
+          level1: "rgb(238,244,249)",
+          level2: "rgb(231,240,246)",
+          level3: "rgb(223,235,242)",
+          level4: "rgb(221,234,241)",
+          level5: "rgb(216,231,239)"
+        },
+        surfaceDisabled: "rgba(25,28,30,0.12)",
+        onSurfaceDisabled: "rgba(25,28,30,0.38)",
+        backdrop: "rgba(42,49,54,0.4)",
+        black: "#000000",
+        exploroOrange: "#FF5500",
+        googleBlue: "#4285F4",
+        googleGreen: "#0F9D58",
+        googleRed: "#DB4437",
+        googleYellow: "#F4B400",
+        white: "#FFFFFF"
+      },
+      fonts: {
+        displayLarge: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 64,
+          fontSize: 57
+        },
+        displayMedium: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 52,
+          fontSize: 45
+        },
+        displaySmall: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 44,
+          fontSize: 36
+        },
+        headlineLarge: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 40,
+          fontSize: 32
+        },
+        headlineMedium: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 36,
+          fontSize: 28
+        },
+        headlineSmall: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 32,
+          fontSize: 24
+        },
+        titleLarge: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400",
+          lineHeight: 28,
+          fontSize: 22
+        },
+        titleMedium: {
+          fontFamily: "System",
+          letterSpacing: 0.15,
+          fontWeight: "500",
+          lineHeight: 24,
+          fontSize: 16
+        },
+        titleSmall: {
+          fontFamily: "System",
+          letterSpacing: 0.1,
+          fontWeight: "500",
+          lineHeight: 20,
+          fontSize: 14
+        },
+        labelLarge: {
+          fontFamily: "System",
+          letterSpacing: 0.1,
+          fontWeight: "500",
+          lineHeight: 20,
+          fontSize: 14
+        },
+        labelMedium: {
+          fontFamily: "System",
+          letterSpacing: 0.5,
+          fontWeight: "500",
+          lineHeight: 16,
+          fontSize: 12
+        },
+        labelSmall: {
+          fontFamily: "System",
+          letterSpacing: 0.5,
+          fontWeight: "500",
+          lineHeight: 16,
+          fontSize: 11
+        },
+        bodyLarge: {
+          fontFamily: "System",
+          letterSpacing: 0.15,
+          fontWeight: "400",
+          lineHeight: 24,
+          fontSize: 16
+        },
+        bodyMedium: {
+          fontFamily: "System",
+          letterSpacing: 0.25,
+          fontWeight: "400",
+          lineHeight: 20,
+          fontSize: 14
+        },
+        bodySmall: {
+          fontFamily: "System",
+          letterSpacing: 0.4,
+          fontWeight: "400",
+          lineHeight: 16,
+          fontSize: 12
+        },
+        default: {
+          fontFamily: "System",
+          letterSpacing: 0,
+          fontWeight: "400"
+        }
+      },
+      animation: {
+        scale: 1
+      }
+    };
+
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportedTheme, null, 2));
     const downloadAnchorNode = document.createElement('a');
     downloadAnchorNode.setAttribute("href", dataStr);
     downloadAnchorNode.setAttribute("download", "theme.json");
