@@ -59,12 +59,18 @@ const ThemeEditor = () => {
   };
 
   const copyToClipboard = useCallback((color) => {
-    navigator.clipboard.writeText(color).then(() => {
-      toast.success(`Copied ${color} to clipboard!`);
-    }, (err) => {
-      console.error('Could not copy text: ', err);
-      toast.error('Failed to copy color');
-    });
+    if (!navigator.clipboard) {
+      toast.error('Clipboard API not supported');
+      return;
+    }
+    navigator.clipboard.writeText(color)
+      .then(() => {
+        toast.success(`Copied ${color} to clipboard!`);
+      })
+      .catch((err) => {
+        console.error('Could not copy text: ', err);
+        toast.error('Failed to copy color');
+      });
   }, []);
 
   const exportTheme = () => {
